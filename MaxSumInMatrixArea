@@ -1,0 +1,66 @@
+using System;
+
+class MaxSumInMatrixArea
+{
+    static void Main()
+    {
+        Console.Write("Enter size of array, N:");
+        int n = int.Parse(Console.ReadLine());
+        Console.Write("Enter size of array, M:");
+        int m = int.Parse(Console.ReadLine());
+        int[,] matrix = new int[n, m];
+        Console.WriteLine("Enter elements of the array:");
+        for (int row = 0; row < n; row++)
+        {
+            for (int col = 0; col < m; col++)
+            {
+                matrix[row, col] = int.Parse(Console.ReadLine());
+            }
+        }
+        int bestSum = int.MinValue;
+        int sum = 0;
+        int bestRow = 0;
+        int bestCol = 0;
+        for (int row = 0; row <n - 2; row++)
+        {
+            for (int col = 0; col <m - 2; col++)
+            {
+                sum += matrix[row, col] + matrix[row, col + 1] + matrix[row, col + 2] +
+                       matrix[row + 1, col] + matrix[row + 1, col + 1] + matrix[row + 1, col + 2] +
+                       matrix[row + 2, col] + matrix[row + 2, col + 1] + matrix[row + 2, col + 2];
+
+                if (sum > bestSum)
+                {
+                    bestSum = sum;
+                    bestRow = row;
+                    bestCol = col;
+                }
+                sum = 0;
+            }
+        }
+        Console.WriteLine("The big matrix is:");
+        for (int row = 0; row < n; row++)
+        {
+            for (int col = 0; col < m; col++)
+            {
+                Console.Write("{0,4} ", matrix[row, col]);
+            }
+            Console.WriteLine();
+        }
+        Console.WriteLine();
+        Console.WriteLine("Best Sum is ---> {0}", bestSum);
+        Console.WriteLine("Best matrix is:");
+        for (int row = 0; row < 3; row++)
+        {
+            for (int col = 0; col < 3; col++)
+            {
+                Console.Write("{0,4} ", matrix[bestRow,bestCol]);
+                bestCol++;
+            }
+            bestCol=bestCol- 3;
+            bestRow++;
+            Console.WriteLine();
+        }
+
+    }
+}
