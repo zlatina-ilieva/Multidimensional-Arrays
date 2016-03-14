@@ -1,0 +1,129 @@
+using System;
+
+class FillAndPrint
+{
+    static void Main()
+    {
+        Console.Write("Enter size of array, N:");
+        int n = int.Parse(Console.ReadLine());
+        int[,] matrix = new int[n, n];
+        int br = 1;
+        //Matrix A;
+        Console.WriteLine("*******Matrix A*******");
+        for (int col = 0; col < n; col++)
+        {
+            for (int row = 0; row < n; row++)
+            {
+                matrix[row, col] = br++;
+            }
+        }
+        for (int row = 0; row < matrix.GetLength(0); row++)
+        {
+            for (int col = 0; col < matrix.GetLength(1); col++)
+            {
+                Console.Write("{0,5}", matrix[row, col]);
+            }
+            Console.WriteLine();
+        }
+        //Matrix B;
+        Console.WriteLine("*******Matrix B*******");
+        Console.WriteLine();
+        int br1 = 1;
+        for (int col = 0; col < n; col++)
+        {
+            if (col % 2 == 0)
+            {
+                for (int row = 0; row < n; row++)
+                {
+                    matrix[row, col] = br1;
+                    br1++;
+                }
+            }
+            else
+            {
+                for (int row = n - 1; row >= 0; row--)
+                {
+                    matrix[row, col] = br1;
+                    br1++;
+                }
+            }
+        }
+        for (int row = 0; row < matrix.GetLength(0); row++)
+        {
+            for (int col = 0; col < matrix.GetLength(1); col++)
+            {
+                Console.Write("{0,5}", matrix[row, col]);
+            }
+            Console.WriteLine();
+        }
+        //Matrix C;
+        Console.WriteLine("*******Matrix C*******");
+        Console.WriteLine();
+        int br2 = 1;
+        for (int row = 0; row < n; row++)
+        {
+            for (int col = 0; col <= row; col++)
+            {
+                matrix[(n - row + col - 1), col] = br2;
+                br2++;
+            }
+        }
+        for (int row = n - 2; row >= 0; row--)
+        {
+            for (int col = row; col >= 0; col--)
+            {
+                matrix[(row - col), (n - col - 1)] = br2;
+                br2++;
+            }
+        }
+        for (int row = 0; row < matrix.GetLength(0); row++)
+        {
+            for (int col = 0; col < matrix.GetLength(1); col++)
+            {
+                Console.Write("{0,5}", matrix[row, col]);
+            }
+            Console.WriteLine();
+        }
+        //Matrix D;
+        Console.WriteLine("*******Matrix D*******");
+        Console.WriteLine();
+        int br3 = 1;
+        for (int i = 0; br3 <= n * n; )
+        {
+            for (int down = n - (i * 2), row = 0 + i, col = 0 + i; down > 0; down--)
+            {
+                matrix[row, col] = br3;
+                br3++;
+                row++;
+            }
+            for (int right = n - (1 + (i * 2)), row = n - (1 + i), col = 1 + i; right > 0; right--)
+            {
+                matrix[row, col] = br3;
+                br3++;
+                col++;
+            }
+            for (int up = n - (1 + (i * 2)), row = n - (2 + i), col = n - (1 + i); up > 0; up--)
+            {
+                matrix[row, col] = br3;
+                br3++;
+                row--;
+            }
+            for (int left = n - (2 + (i * 2)), row = 0 + i, col = n - (2 + i); left > 0; left--)
+            {
+                matrix[row, col] = br3;
+                br3++;
+                col--;
+            }
+            i++;
+        }
+            for (int row = 0; row < matrix.GetLength(0); row++)
+            {
+                for (int col = 0; col < matrix.GetLength(1); col++)
+                {
+                    Console.Write("{0,5}", matrix[row, col]);
+                }
+                Console.WriteLine();
+            }
+        
+    }
+}
