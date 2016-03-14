@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+
+class LargestAreaOfEqualNeighbours
+{
+    public static int N;
+    public static int M;
+    public static int sameValue;
+    public static int[,] matrix;
+    public static bool[,] visited;
+    public static int visitNumbers;
+    private static void Neibourhood(int row, int col)
+    {
+        visited[row, col] = true;
+        int[] neighRow = new int[] { -1, 1, 0, 0 };
+        int[] neighCol = new int[] { 0, 0, 1, -1 };
+        for (int i = 0; i < 4; i++)
+        {
+            if (row + neighRow[i] >= 0 && row + neighRow[i] < N && col + neighCol[i] >= 0 && col + neighCol[i] < M)
+            {
+                if (matrix[row + neighRow[i], col + neighCol[i]] == sameValue && visited[row + neighRow[i], col + neighCol[i]] == false)
+                {
+                    visitNumbers++;
+                    Neibourhood(row + neighRow[i], col + neighCol[i]);
+                }
+            }
+        }
+    }
+    static void Main()
+    {
+        N = 5;
+        M = 6;
+        matrix = new int[,]{
+                            {1,3,2,2,2,4},
+                            {3,3,3,2,4,4},
+                            {4,3,1,2,3,3},
+                            {4,3,1,3,3,1},
+                            {4,3,3,3,1,1}
+        }; 
+        visited = new bool[N,M];
+        int largestArea = 0;
+        for (int i = 0; i < N; i++)
+        {
+            for (int y = 0; y < M; y++)
+            {
+                if (visited[i, y] == false) 
+                {
+                    visitNumbers = 1;
+                    sameValue = matrix[i, y];
+                    Neibourhood(i, y);
+                    if (visitNumbers > largestArea)
+                    {
+                        largestArea = visitNumbers;
+                    }
+                }
+            }
+        }
+        Console.WriteLine("The largest area of neighbours is {0}", largestArea);
+    }
+}
