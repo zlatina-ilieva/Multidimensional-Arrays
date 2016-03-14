@@ -1,0 +1,99 @@
+using System;
+using System.Text;
+
+class OperatorOverloading
+{
+    public class Matrix
+    {
+        public int rows;
+        public int cols;
+        private int[,] matrix;
+        public Matrix(int x, int y)
+        {
+            rows = x;
+            cols = y;
+            matrix = new int[rows,cols];
+        }
+
+        public int this[int x, int y]
+        {
+            get {return matrix[x, y];}
+            set {matrix[x, y] = value;}
+        }
+        public static Matrix operator +( Matrix first, Matrix second) 
+        {
+            Matrix result = new Matrix(first.rows, first.cols);
+            for (int i = 0; i < first.rows; i++)
+            {
+                for (int j = 0; j < first.cols; j++)
+                {
+                    result[i, j] = first[i, j] + second[i, j];
+                }
+            }
+            return result;
+        }
+        public static Matrix operator -(Matrix first, Matrix second)
+        {
+            Matrix result = new Matrix(first.rows, first.cols);
+            for (int i = 0; i < first.matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < second.matrix.GetLength(1); j++)
+                {
+                    result[i, j] = first[i, j] - second[i, j];
+                }
+            }
+            return result;
+        }
+        public static Matrix operator *(Matrix first, Matrix second)
+        {
+            Matrix result = new Matrix(first.rows, first.cols);
+            for (int i = 0; i < first.matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < second.matrix.GetLength(1); j++)
+                {
+                    result[i, j] = first[i, j] * second[i, j];
+                }
+            }
+            return result;
+        }
+        public override string ToString()
+        {
+            StringBuilder matrixToString = new StringBuilder();
+            for (int i = 0; i < rows; i++)
+			{
+			    for (int j = 0; j < cols; j++)
+			    {
+			        matrixToString.Append(String.Format("{0} ", matrix[i,j]));
+			    }
+                matrixToString.Append("\n");
+			}
+            return matrixToString.ToString();
+        }
+    }
+    static void Main()
+    {
+        Matrix m1 = new Matrix(3, 3);
+        Matrix m2 = new Matrix(3, 3);
+        Matrix result;
+        Random randomGenerator = new Random(); 
+        for (int i = 0; i < m1.rows; i++) 
+        { 
+            for (int j = 0; j < m1.cols; j++) 
+            { 
+                m1[i, j] = randomGenerator.Next(20); 
+                m2[i, j] = randomGenerator.Next(20); 
+            } 
+        }
+        Console.WriteLine(m1);
+        Console.WriteLine(m2);
+        result = m1 + m2;
+        Console.WriteLine("Addition:");
+        Console.WriteLine(result);
+        result = m1 - m2;
+        Console.WriteLine("Subtraction:");
+        Console.WriteLine(result);
+        result = m1 * m2;
+        Console.WriteLine("Multiplication:");
+        Console.WriteLine(result);
+    }
+}
