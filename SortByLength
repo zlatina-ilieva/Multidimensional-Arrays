@@ -1,0 +1,22 @@
+using System;
+using System.Linq;
+
+class SortByLength
+{
+    static void Main()
+    {
+        Console.Write("Enter size of the array:");
+        int n = int.Parse(Console.ReadLine());
+        string [] array= new string [n];
+        Console.WriteLine("Enter elements of the array:");
+        for (int index = 0; index < n; index++)
+        {
+            array[index] = Convert.ToString(Console.ReadLine());
+        }
+        Console.WriteLine();
+        foreach (var element in array.OrderBy(Strings => Strings.Length))
+        {
+            Console.WriteLine(element);
+        }
+    }
+}
